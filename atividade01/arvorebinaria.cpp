@@ -25,7 +25,7 @@ int empty_tree(struct node* node) {
 struct node* newnode(int data, struct node* left, struct node* right) {
   struct node* node = (struct node*)malloc(sizeof(struct node));
   if(empty_tree(node)) {
-    return 0;
+    exit(1);
   };
   node->data = data;
   node->left = left;
@@ -52,12 +52,12 @@ void print(struct node* node) {
 };
 
 /* Calcula a altura da árvore */
-int tree_height(struct node* node) {
+int tree_height(struct node* node) { 
   if(empty_tree(node)) {
-    return 0;
+    return -1;
   } else {
     int left_height = tree_height(node->left);
-    int right_height = tree_height(node->right);
+    int right_height = tree_height(node->right); 
     if (left_height >= right_height) {
       return left_height + 1;
     } else {
@@ -69,9 +69,9 @@ int tree_height(struct node* node) {
 /* Imprime um nível da árvore */
 void print_level(struct node* node, int level_node) {
   if(empty_tree(node)) {
-    return;
+    exit(1);
   };
-  if(level_node == 1) {
+  if(level_node == 0) {
     printf("%d ", node->data);
   } else {
       print_level(node->left, level_node - 1);
@@ -83,7 +83,7 @@ void print_level(struct node* node, int level_node) {
 void print_levelorder(struct node* node) {
   int height = tree_height(node);
   int counter;
-  for (counter = 1; counter <= height; counter++) {
+  for (counter = 0; counter <= height; counter++) {
     print_level(node, counter);
   };
 };
